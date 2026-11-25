@@ -1,0 +1,10 @@
+anoisesrc=c=brown:d=12:r=48000:seed=1,lowpass=f=320,volume=0.9,pan=stereo|c0=c0|c1=c0[road];
+anoisesrc=c=pink:d=12:r=48000:seed=2,highpass=f=500,lowpass=f=2600,volume='0.07+0.02*sin(2*PI*0.23*t)+0.008*t':eval=frame,pan=stereo|c0=c0|c1=0.85*c0[wind];
+sine=f=92:d=12:r=48000,volume=0.05[h1];
+aevalsrc='0.012*sin(2*PI*(520*t+7*t*t))':d=12:s=48000[h2];
+[h1][h2]amix=inputs=2:normalize=0,pan=stereo|c0=c0|c1=c0[motor];
+anoisesrc=c=pink:d=12:r=48000:seed=10,bandpass=f=1100:w=1800,volume='60*exp(-pow((t-3.3)/0.28,2))':eval=frame,pan=stereo|c0=0.8*c0|c1=0.20*c0[w0];
+anoisesrc=c=pink:d=12:r=48000:seed=11,bandpass=f=1100:w=1800,volume='55*exp(-pow((t-7.2)/0.28,2))':eval=frame,pan=stereo|c0=0.8*c0|c1=0.20*c0[w1];
+anoisesrc=c=pink:d=12:r=48000:seed=12,bandpass=f=1100:w=1800,volume='55*exp(-pow((t-10.6)/0.28,2))':eval=frame,pan=stereo|c0=0.8*c0|c1=0.20*c0[w2];
+anoisesrc=c=pink:d=12:r=48000:seed=13,bandpass=f=1100:w=1800,volume='90*exp(-pow((t-8)/0.9,2))':eval=frame,pan=stereo|c0=0.25*c0|c1=0.75*c0[w3];
+[road][wind][motor][w0][w1][w2][w3]amix=inputs=7:normalize=0,afade=t=in:d=0.4,afade=t=out:st=11.3:d=0.7,volume=0.56,alimiter=limit=0.7[a]
